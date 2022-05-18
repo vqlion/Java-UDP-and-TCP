@@ -8,22 +8,26 @@ public class UDPClient {
         InetAddress host;
         try {
             host = InetAddress.getByName("localhost");
-            DatagramSocket socket = new DatagramSocket();
+            DatagramSocket socket = new DatagramSocket(); // opening the communication with the server with the
+                                                          // specified IP
 
             // send
             String msg = "anything";
             byte[] bSent = msg.getBytes();
-            DatagramPacket packetSent = new DatagramPacket(bSent, bSent.length, host, PORT);
-            socket.send(packetSent);
+            DatagramPacket packetSent = new DatagramPacket(bSent, bSent.length, host, PORT); // create a packet that
+                                                                                             // contains the message to
+                                                                                             // send to the server
+            socket.send(packetSent); // sends the message
 
-            // reception
+            // receive
             byte[] bReceived = new byte[1500];
-            DatagramPacket packetRec = new DatagramPacket(bReceived, bReceived.length);
+            DatagramPacket packetRec = new DatagramPacket(bReceived, bReceived.length); // create a packet that will
+                                                                                        // contain the message received
 
-            socket.receive(packetRec);
+            socket.receive(packetRec); // receive a message from the server and store it in packetRec
             int nbCar = packetRec.getLength();
             byte[] tmp = Arrays.copyOf(bReceived, nbCar);
-            String msgRec = new String(tmp, "UTF-8");
+            String msgRec = new String(tmp, "UTF-8"); // extract the string from packetRec
 
             System.out.println(msgRec);
             socket.close();

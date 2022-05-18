@@ -1,5 +1,4 @@
 import java.net.*;
-import java.util.Arrays;
 import java.io.*;
 
 public class TCPClient {
@@ -8,21 +7,21 @@ public class TCPClient {
         final int PORT = 5000;
         Socket socket;
         try {
-            socket = new Socket("localhost", PORT);
+            socket = new Socket("localhost", PORT); // establish communication with the server with the specified IP
 
             // send
             String message = "anything";
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            out.println(message);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true); // to send messages
+            out.println(message); // sends a message to the server
 
-            // reception
+            // receive
             String msgRec;
             BufferedReader in;
             in = new BufferedReader(
                     new InputStreamReader(
-                            socket.getInputStream()));
+                            socket.getInputStream())); // to receive messages
 
-            msgRec = in.readLine();
+            msgRec = in.readLine(); // reads the message received from the server
 
             System.out.println(msgRec);
 
